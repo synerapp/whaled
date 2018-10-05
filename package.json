@@ -1,0 +1,26 @@
+{
+  "name": "whaled.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "morgan": "^1.9.1",
+    "mssql": "^4.2.1",
+    "serve-favicon": "^2.5.0",
+    "steem": "^0.7.2",
+    "tedious": "^2.6.4",
+    "wlsjs": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
