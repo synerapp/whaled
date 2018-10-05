@@ -1,0 +1,47 @@
+table{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.ajustando{
+    padding: 10px;
+}
+.color{
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+    border: round;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin: 10px;
+}
+th{
+    text-align: justify;
+    width: 180px;
+}
+th.b{
+    display:inline-block;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    width: 50px;
+}
+tr{
+    text-align: left;
+    
+}
+tr:last-child{
+    text-align: left;
+    border-bottom: none;
+}
+.hyphenation {
+ word-break: break-all;
+ 
+ word-break: break-word; 
+
+-webkit-hyphens: auto;
+-moz-hyphens: auto;
+-ms-hyphens: auto;
+    hyphens: auto;
+}
