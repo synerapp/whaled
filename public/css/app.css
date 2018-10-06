@@ -21,3 +21,18 @@
         border-top-left-radius: .25rem;
         border-top-right-radius: .25rem;
     }
+    .img{
+        width: 200px;
+        height: 100px;
+    }
+    .opensource{
+        padding: 20px;
+        color: #004085;
+        background-color: #cce5ff;
+        border-color: #b8daff;
+        border-radius: 10px;
+    }
+    h4{
+        font-weight: 700;
+        color: #202020;
+    }
