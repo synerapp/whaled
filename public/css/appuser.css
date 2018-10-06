@@ -32,3 +32,18 @@ td{
 .texto{
     color: #555758!important;
 }
+.img{
+    width: 200px;
+    height: 100px;
+}
+.opensource{
+    padding: 20px;
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+    border-radius: 10px;
+}
+h4{
+    font-weight: 700;
+    color: #202020;
+}

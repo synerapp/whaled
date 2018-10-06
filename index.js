@@ -44,26 +44,19 @@ function cargarhistorial(usuario,start,callback){
         if(response)
             datosU.push(response[0])
     })
-    wls.api.getAccountHistory(usuario, start , (start < 0) ? 10000 : Math.min(start, 10000), function(err, result) {
+    wls.api.getAccountHistory(usuario, start , 100, function(err, result) {
         if(err){
             manejoerrores=true
             if(callback)
                 callback(err)
         }
         if(result){
-        result.reverse();
-        for(var i = 0; i < result.length; i++) {
-            var trans = result[i];
-            data.push(result[i]);
-            // Save the ID of the last transaction that was processed.
-            last_trans=trans[0];
-        }
-        if(last_trans > 0 && last_trans != start && datosU[0])
-            cargarhistorial(usuario, last_trans, callback);
-            else {
-                if(callback)
-                    callback(data,null,datosU)
+            result.reverse();
+            for(var i = 0; i < result.length; i++) {
+                data.push(result[i]);
             }
+            if(callback)
+                callback(data,null,datosU)
         }else{
             callback(null,err,null)
         }
@@ -101,7 +94,7 @@ app.get('/:id',(req,res)=>{
         page=req.query.page
     if(user!="/@"){
         user.toLowerCase();
-        cargarhistorial(user.substr(2,user.length),-1,(data,err,datau)=>{
+        cargarhistorial(user.substr(2,user.length),(page ? (page*-100) : -100),(data,err,datau)=>{
             if(err)
                 res.render("errores")
             else{
@@ -110,17 +103,11 @@ app.get('/:id',(req,res)=>{
                         res.status(200).render("errores")
                     }
                     if(gsp){
-                        var nPages=parseInt(data.length)/100,
-                            pagef= page ? page*100 : 0,
-                            pagef2=(parseInt(pagef)+101)>data.length ? data.length : parseInt(pagef)+101,
-                            pagefinal= pagef && pagef2 ? data.slice(pagef,pagef2) : data.slice(0,101)
-
                         res.status(200).render('usernames',{
-                            pageA:page ? page : null,
-                            datos:pagefinal,
-                            numPages:nPages,
+                            datos:data,
                             u:user.substr(2,user.length),
                             datau:datau,
+                            page:page,
                             sp:gsp
                         })
                     }
