@@ -5,7 +5,7 @@ const morgan = require('morgan')
 const path = require("path")
 const favicon = require('serve-favicon');
 const wls = require("wlsjs");
-wls.api.setOptions({ url: 'ws://188.166.99.136:8090' });
+wls.api.setOptions({ url: 'http://whaleshares.io/ws' });
 
 
 app.set('view engine', 'ejs');
@@ -139,9 +139,11 @@ app.get('/trx/:id',(req,res)=>{
             res.status(200).render("errores")
         }
         //res.send(datossend)
-        res.status(200).render('trx',{
-            data:datossend
-        })
+        else{
+            res.status(200).render('trx',{
+                data:datossend
+            })
+        }
     })
 })
 
