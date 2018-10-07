@@ -80,11 +80,6 @@ function confis(callback){
     });
 }
 
-app.get('/',()=>{
-    res.status(200).send('index')
-})
-
-
 app.get('/:id',(req,res)=>{
     sp=null
     data=[]
@@ -95,13 +90,10 @@ app.get('/:id',(req,res)=>{
     if(user!="/@"){
         user.toLowerCase();
         cargarhistorial(user.substr(2,user.length),(page ? (page*-100) : -100),(data,err,datau)=>{
-            if(err)
-                res.render("errores")
-            else{
+            if(err){
+                res.status(200).render("errores")
+            }else{
                 confis((gsp)=>{
-                    if(manejoerrores){
-                        res.status(200).render("errores")
-                    }
                     if(gsp){
                         res.status(200).render('usernames',{
                             datos:data,
@@ -110,6 +102,8 @@ app.get('/:id',(req,res)=>{
                             page:page,
                             sp:gsp
                         })
+                    }else{
+                        res.status(200).render("errores")
                     }
                 })
             }
