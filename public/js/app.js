@@ -1,4 +1,4 @@
-    steem.api.setOptions({ url: 'ws://188.166.99.136:8090' });
+    steem.api.setOptions({ url: 'https://rpc.wls.services' });
     var block=null
     DynamicProperties()
     function blockesgene1(){

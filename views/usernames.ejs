@@ -257,8 +257,7 @@
             </div>
             </div>
             <div class="col-lg-8 col-sm-12">
-                <% datos.map((user,key)=>{ %>
-                    
+                <% datos.forEach((user,key)=>{ %>
                     <% var fechTimeCurrente=fech[key] %>
                     <% if(user[1].op[0]=='vote'){ %>
                         <div class="alert alert-primary" role="alert">

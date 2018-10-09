@@ -3,18 +3,18 @@ const app = express()
 const morgan = require('morgan')
 const path = require("path")
 const favicon = require('serve-favicon');
-const wls = require("wlsjs");
+const wls = require("steem");
 const moment = require('moment');
 var current=0
 
-moment().format("YYYYMMDDhhmmss"); 
 nodo()
 setInterval(()=>{ nodo() },10*60*1000)
 function nodo(){
     const noneCurrent=[
-        'http://188.166.99.136:8090',
-        'http://whaleshares.io/ws',
-        'http://beta.whaleshares.net/wss'
+        'https://rpc.wls.services',
+        'ws://188.166.99.136:8090',
+        'https://whaleshares.io/ws'
+        
     ]
     wls.api.setOptions({ url: noneCurrent[current] });
     console.log(`current node ${noneCurrent[current]}`)
@@ -46,7 +46,6 @@ app.get('/',(req,res)=>{
     res.status(200).render("index")
 })
 var data=[]
-var last_trans
 var datosU=[]
 var manejoerrores=false
 var fech=[]
@@ -60,35 +59,52 @@ function cargarhistorial(usuario,start,callback){
         }
         if(response){
             datosU.push(response[0])
+            dataUser(usuario,start,(data,data1,datosU)=>{
+                if(callback)
+                    callback(data,(data1 ? data1 : null),datosU)
+            })
         }
 
-    })
-    wls.api.getAccountHistory(usuario, start , (start < 0) ? 10000 : Math.min(start, 10000), function(err, result) {
+    })   
+}
+function dataUser(usuario,start,callback){
+    wls.api.getAccountHistory(usuario, start*-1 , Math.min(start,1000), function(err, result) {
         if(err){
             nodo()
             manejoerrores=true
             if(callback)
-                callback(err)
+                callback(null,err,null)
         }
-        if(result){
-        result.reverse();
-        for(var i = 0; i < result.length; i++) {
-            var trans = result[i];
-            data.push(result[i]);
-            var fpreviud=moment.utc(result[i][1].timestamp).valueOf()
-            fech.push(moment(fpreviud).fromNow())
-            // Save the ID of the last transaction that was processed.
-            last_trans=trans[0];
-        }
-        if(last_trans > 0 && last_trans != start && datosU[0])
-            cargarhistorial(usuario, last_trans, callback);
-            else {
-                if(callback)
-                    callback(data,null,datosU)
+        else if(result && result.length>0){
+            console.log("esta aqui")
+            result.reverse();
+            console.log(result.length)
+            console.log(start*-1)
+            console.log(Math.min(start,1000))
+            var numero=start<=1000 ? 100 : start<=10000 ? 1000 : start<=100000 ? 10000 : null
+            var n=start/numero
+            var putno=n.toString().indexOf(".");
+            var numeroN=n.toString()
+            var numeroS=numeroN.substring((putno!=-1 ? putno+1 : 0),numero.length)
+            console.log(Number(numeroS)*100-100)
+            console.log(Number(numeroS)*100)
+            for(var i = (Number(numeroS)*100-100);i<(result.length< (Number(numeroS)*100) ? result.length : Number(numeroS)*100); i++) {
+                //if(result[i][0]>=1){
+                    data.push(result[i])
+                    var fpreviud=moment.utc(result[i][1].timestamp).valueOf()
+                    fech.push(moment(fpreviud).fromNow())
+                //}
             }
+            if (callback){
+                console.log("generando callback")
+                callback(data,null,datosU)
+            }     
         }else{
-            callback(null,err,null)
+            if (callback){
+                callback(null,true,null)
+            }  
         }
+
     });
 }
 function confis(callback){
@@ -110,10 +126,6 @@ function confis(callback){
     });
 }
 
-app.get('/',()=>{
-    res.status(200).send('index')
-})
-
 
 app.get('/:id',(req,res)=>{
     sp=null
@@ -125,7 +137,7 @@ app.get('/:id',(req,res)=>{
         page=req.query.page
     if(user!="/@"){
         user.toLowerCase();
-        cargarhistorial(user.substr(2,user.length),-1,(data,err,datau)=>{
+        cargarhistorial(user.substr(2,user.length),(page ? page*100 : 100),(data,err,datau)=>{
             if(err)
                 res.render("errores")
             else{
@@ -134,22 +146,13 @@ app.get('/:id',(req,res)=>{
                         res.status(200).render("errores")
                     }
                     if(gsp){
-                        var nPages=parseInt(data.length)/100,
-                            pagef= page ? page*100 : 0,
-                            pagef2=(parseInt(pagef)+101)>data.length ? data.length : parseInt(pagef)+101,
-                            pagefinal= pagef && pagef2 ? data.slice(pagef,pagef2) : data.slice(0,101)
-                            
-                        var fin=(parseInt(pagef)+101)>fech.length ? fech.length : parseInt(pagef)+101,
-                                ffinal= pagef && fin ? fech.slice(pagef,fin) : fech.slice(0,101)
-
                         res.status(200).render('usernames',{
-                            page:page,
-                            datos:pagefinal,
-                            numPages:nPages,
-                            fech:ffinal,
+                            datos:data,
+                            fech:fech,
                             u:user.substr(2,user.length),
                             datau:datau,
-                            sp:gsp
+                            sp:gsp,
+                            page:page
                         })
                     }
                 })
