@@ -12,7 +12,7 @@ setInterval(()=>{ nodo() },10*60*1000)
 function nodo(){
     const noneCurrent=[
         'https://rpc.wls.services',
-        ' http://188.166.99.136:8090',
+        'http://188.166.99.136:8090',
     ]
     wls.api.setOptions({ url: noneCurrent[current] });
     console.log(`current node ${noneCurrent[current]}`)
