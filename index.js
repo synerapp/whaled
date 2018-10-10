@@ -3,7 +3,7 @@ const app = express()
 const morgan = require('morgan')
 const path = require("path")
 const favicon = require('serve-favicon');
-const wls = require("steem");
+const wls = require("wlsjs");
 const moment = require('moment');
 var current=0
 
@@ -14,7 +14,6 @@ function nodo(){
         'https://rpc.wls.services',
         'ws://188.166.99.136:8090',
         'https://whaleshares.io/ws'
-        
     ]
     wls.api.setOptions({ url: noneCurrent[current] });
     console.log(`current node ${noneCurrent[current]}`)
@@ -81,11 +80,14 @@ function dataUser(usuario,start,callback){
             console.log(result.length)
             console.log(start*-1)
             console.log(Math.min(start,1000))
-            var numero=start<=1000 ? 100 : start<=10000 ? 1000 : start<=100000 ? 10000 : null
+            console.log(start.toString().length)
+            var numero=start<=1000 ? 100 : start<=100000 ? 1000 : start<=1000000 ? 10000 : start<=10000000 ? 100000 : null
             var n=start/numero
             var putno=n.toString().indexOf(".");
             var numeroN=n.toString()
             var numeroS=numeroN.substring((putno!=-1 ? putno+1 : 0),numero.length)
+            console.log(n)
+            console.log(putno)
             console.log(Number(numeroS)*100-100)
             console.log(Number(numeroS)*100)
             for(var i = (Number(numeroS)*100-100);i<(result.length< (Number(numeroS)*100) ? result.length : Number(numeroS)*100); i++) {
@@ -143,7 +145,7 @@ app.get('/:id',(req,res)=>{
             else{
                 confis((gsp)=>{
                     if(manejoerrores){
-                        res.status(200).render("errores")
+                        res.status(500).render("errores")
                     }
                     if(gsp){
                         res.status(200).render('usernames',{
@@ -152,6 +154,7 @@ app.get('/:id',(req,res)=>{
                             u:user.substr(2,user.length),
                             datau:datau,
                             sp:gsp,
+                            pageLast:(page ? (data[0][0]/100)+(page*100) : data[0][0]/100),
                             page:page
                         })
                     }
@@ -181,7 +184,7 @@ app.get('/trx/:id',(req,res)=>{
     var trxid=path.basename(req.path)
     buscarinfo(trxid,(datossend)=>{
         if(manejoerrores){
-            res.status(200).render("errores")
+            res.status(500).render("errores")
         }
         //res.send(datossend)
         res.status(200).render('trx',{
