@@ -178,7 +178,7 @@ class InfoU extends Component {
                         { data.witness_votes.map( (witness,key)=>{ return <li key={key}>{witness}</li>  } ) }
                         </ol>
                         <hr />
-                        <b>witness votes free:</b>{ 30-(data.witness_votes.length) }
+                        <b>Witness votes left:</b>{ 30-(data.witness_votes.length) }
                     </div>
                     <OpenSource />
                 </div>
