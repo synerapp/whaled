@@ -6,7 +6,7 @@ const OpenSource = () => {
             <center>
                 <img className="imgOpensource" src="/icons/opensource.svg" alt="img open source" />
                 <h4 className="project-title">
-                    <span>We’re open source</span>
+                    <span>WhaleD is open source</span>
                 </h4>
                 <p>
                     <span>Check the GitHub repo and start contributing!</span>
