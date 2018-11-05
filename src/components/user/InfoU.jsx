@@ -131,7 +131,7 @@ class InfoU extends Component {
                         </div>
                             <center>
                                 <span className="mb-0 spanOpacity">
-                                    view on:<a href={`https://whaleshares.io/@${this.props.user}`}>whaleshares.io</a>
+                                    view on: <a href={`https://whaleshares.io/@${this.props.user}`}>whaleshares</a>
                                 </span>
                             </center>
                     </div>
@@ -164,7 +164,7 @@ class InfoU extends Component {
                                 {data.last_bandwidth_update ? <tr><th>last bandwidth update:</th><td>{data.last_bandwidth_update}</td></tr> : null}
                                 {data.last_post ? <tr><th>last post:</th><td>{data.last_post}</td></tr> : null}
                                 {data.last_root_post ? <tr><th>last root post:</th><td>{data.last_root_post}</td></tr> : null}
-                                {data.witnesses_voted_for ? <tr><th>witnesses voted for:</th><td>{data.witnesses_voted_for}</td></tr> : null}
+                                {data.witnesses_voted_for ? <tr><th>witnesses voted for: </th><td>{data.witnesses_voted_for}</td></tr> : null}
                             </tbody>
                         </table>
                     </div>
