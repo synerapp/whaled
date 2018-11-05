@@ -102,7 +102,7 @@ class InfoU extends Component {
                             <div className="col">
                                 <center>
                                     <h4>{this.state.stake!=='loading...' ? `${this.state.stake} WP` : this.state.stake}</h4>
-                                    <span>NEXT POWER DONW : {data.vesting_withdraw_rate}</span>
+                                    <span>Next Powerdown : {data.vesting_withdraw_rate}</span>
                                 </center>
                                 <div className="progress">
                                     <div className="progress-bar progress-bar-striped" role="progressbar" style={this.getStyleVp(data.voting_power,data.last_vote_time)} aria-valuemin="0" aria-valuemax="100">
@@ -178,7 +178,7 @@ class InfoU extends Component {
                         { data.witness_votes.map( (witness,key)=>{ return <li key={key}>{witness}</li>  } ) }
                         </ol>
                         <hr />
-                        <b>Witness votes left:</b>{ 30-(data.witness_votes.length) }
+                        <b>Witness votes left: </b>{ 30-(data.witness_votes.length) }
                     </div>
                     <OpenSource />
                 </div>
