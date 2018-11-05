@@ -4,7 +4,7 @@ const OpenSource = () => {
     return (
         <div className="alert alert-primary opensourcecss">
             <center>
-                <img className="imgOpensource" src="https://open-paas.org/images/icon-opensource.svg" alt="img open source" />
+                <img className="imgOpensource" src="/icons/opensource.svg" alt="img open source" />
                 <h4 className="project-title">
                     <span>We’re open source</span>
                 </h4>

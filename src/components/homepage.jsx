@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import wlsjs from 'wlsjs'
 import './username.css'
 import Bloks from './bloksHomePage'
+import OpenSource from './user/OpenSource'
 class Homepage extends Component {
     constructor(){
         super()
@@ -179,6 +180,7 @@ class Homepage extends Component {
                                     </tr>
                             </tbody>
                         </table>
+                        <OpenSource />
                         </div>
                     </div>
                 </div>

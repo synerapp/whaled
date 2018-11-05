@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import wlsjs from 'wlsjs'
 import '../username.css'
 import moment from 'moment'
-
+import OpenSource from './OpenSource'
 class InfoU extends Component {
     constructor(){
         super()
@@ -102,7 +102,7 @@ class InfoU extends Component {
                             <div className="col">
                                 <center>
                                     <h4>{this.state.stake!=='loading...' ? `${this.state.stake} WP` : this.state.stake}</h4>
-                                    <span>{data.vesting_withdraw_rate}</span>
+                                    <span>NEXT POWER DONW : {data.vesting_withdraw_rate}</span>
                                 </center>
                                 <div className="progress">
                                     <div className="progress-bar progress-bar-striped" role="progressbar" style={this.getStyleVp(data.voting_power,data.last_vote_time)} aria-valuemin="0" aria-valuemax="100">
@@ -180,6 +180,7 @@ class InfoU extends Component {
                         <hr />
                         <b>witness votes free:</b>{ 30-(data.witness_votes.length) }
                     </div>
+                    <OpenSource />
                 </div>
             );
         }
