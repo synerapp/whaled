@@ -151,6 +151,31 @@ class SwitchPages extends Component {
                         ({moment(moment.utc(obj[1].timestamp).valueOf()).fromNow()}) 
                     </p>
                     );
+            case 'account_witness_proxy':
+                return (
+                    <p>
+                        <span className="trxtag" >virtual</span>
+                        <a href={`/@${obj[1].op[1].account}`} >{obj[1].op[1].account}</a> 
+                        {' '}<b>Add As Proxy To</b>{' '}
+                        <a href={`/@${obj[1].op[1].proxy}`} >{obj[1].op[1].proxy}</a> 
+                        ({moment(moment.utc(obj[1].timestamp).valueOf()).fromNow()}) 
+                    </p>
+                    );
+
+            case 'fill_vesting_withdraw':
+                    return (
+                        <p>
+                            <span className="trxtag" >virtual</span>
+                            <a href={`/@${obj[1].op[1].from_account}`} >{obj[1].op[1].from_account}</a> 
+                            {' '}<b>Withdraw</b>{' '}
+                            {obj[1].op[1].withdrawn}
+                            {' '}<b>As</b>{' '}
+                            {obj[1].op[1].deposited}
+                            {' '}<b>In The Account</b>{' '}
+                            <a href={`/@${obj[1].op[1].to_account}`} >{obj[1].op[1].to_account}</a> 
+                            ({moment(moment.utc(obj[1].timestamp).valueOf()).fromNow()}) 
+                        </p>
+                        );
             case 'comment':
                 if(obj[1].op[1].parent_author!==''){
                     return (
@@ -205,6 +230,7 @@ class SwitchPages extends Component {
                     )
                 }
             default:
+                console.log(obj[1].op)
                 return (
                     <p className="textoajust">
                     {`${obj[1].op[0]} is not defined yet please notify chronocrypto#7035 or ederaleng#0471 in discord of whaleshares to be able to implement it as soon as possible`} 

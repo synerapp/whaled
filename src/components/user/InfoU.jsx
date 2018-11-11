@@ -101,8 +101,9 @@ class InfoU extends Component {
                         <div className="row">
                             <div className="col">
                                 <center>
+                                    <span>Reward Weight</span>
                                     <h4>{this.state.stake!=='loading...' ? `${this.state.stake} WP` : this.state.stake}</h4>
-                                    <span>Next Powerdown : {data.vesting_withdraw_rate}</span>
+                                    <span><small>Next Powerdown: {data.vesting_withdraw_rate}</small></span>
                                 </center>
                                 <div className="progress">
                                     <div className="progress-bar progress-bar-striped" role="progressbar" style={this.getStyleVp(data.voting_power,data.last_vote_time)} aria-valuemin="0" aria-valuemax="100">
@@ -131,7 +132,7 @@ class InfoU extends Component {
                         </div>
                             <center>
                                 <span className="mb-0 spanOpacity">
-                                    view on: <a href={`https://whaleshares.io/@${this.props.user}`}>whaleshares</a>
+                                    view on:<a href={`https://whaleshares.io/@${this.props.user}`}>whaleshares.io</a>
                                 </span>
                             </center>
                     </div>
@@ -164,7 +165,7 @@ class InfoU extends Component {
                                 {data.last_bandwidth_update ? <tr><th>last bandwidth update:</th><td>{data.last_bandwidth_update}</td></tr> : null}
                                 {data.last_post ? <tr><th>last post:</th><td>{data.last_post}</td></tr> : null}
                                 {data.last_root_post ? <tr><th>last root post:</th><td>{data.last_root_post}</td></tr> : null}
-                                {data.witnesses_voted_for ? <tr><th>witnesses voted for: </th><td>{data.witnesses_voted_for}</td></tr> : null}
+                                {data.witnesses_voted_for ? <tr><th>witnesses voted for:</th><td>{data.witnesses_voted_for}</td></tr> : null}
                             </tbody>
                         </table>
                     </div>
@@ -178,7 +179,7 @@ class InfoU extends Component {
                         { data.witness_votes.map( (witness,key)=>{ return <li key={key}>{witness}</li>  } ) }
                         </ol>
                         <hr />
-                        <b>Witness votes left: </b>{ 30-(data.witness_votes.length) }
+                        <b>witness votes free:</b>{ 30-(data.witness_votes.length) }
                     </div>
                     <OpenSource />
                 </div>
